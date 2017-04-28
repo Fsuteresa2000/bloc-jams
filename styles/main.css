@@ -13,7 +13,9 @@ body {
     color: white;
     min-height: 100%;
 }
-
+body.landing {
+  background-color: rgb(58,23,63);
+}
 .navbar {
      position: relative;
      padding: 0.5rem;
@@ -54,9 +56,16 @@ body {
  .links-container .navbar-link:hover {
      color: rgb(233,50,117);
  }
+ .links-container .navbar-link:active {
+     background-color: white;
+ }
 .container {
     margin: 0 auto;
     max-width: 64 rem;
+}
+
+.container.narrow {
+    max-width: 56
 }
 
 @media (min-width: 640px) {
