@@ -28,6 +28,21 @@ var albumPicasso = {
          { title: 'Wrong phone number', duration: '2:15'}
      ]
  };
+
+ var albumDads = {
+     title: 'Be The Tornado',
+     artist: 'Dads',
+     label: '6131',
+     year: '2014',
+     albumArtUrl: 'bloc-jams/assets/images/album_covers/Dads.jpg',
+     songs: [
+         { title: 'Grand Edge, MI', duration: '4:45' },
+         { title: 'Chewing Ghosts', duration: '3;35' },
+         { title: 'The Romantic Ocean', duration: '2;43'},
+         { title: 'Fake Knees', duration: '4;35' },
+         { title: 'Solid Year', duration: '4:01'}
+     ]
+ };
  var createSongRow = function(songNumber, songName, songLength) {
      var template =
         '<tr class="album-view-song-item">'
@@ -39,30 +54,36 @@ var albumPicasso = {
 
      return template;
  };
+ var albumTitle = document.getElementsByClassName('album-view-title')[0];
+ var albumArtist = document.getElementsByClassName('album-view-artist')[0];
+ var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
+ var albumImage = document.getElementsByClassName('album-cover-art')[0];
+ var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
  var setCurrentAlbum = function(album) {
-     // #1
-     var albumTitle = document.getElementsByClassName('album-view-title')[0];
-     var albumArtist = document.getElementsByClassName('album-view-artist')[0];
-     var albumReleaseInfo = document.getElementsByClassName('album-view-release-info')[0];
-     var albumImage = document.getElementsByClassName('album-cover-art')[0];
-     var albumSongList = document.getElementsByClassName('album-view-song-list')[0];
 
-     // #2
-     albumTitle.firstChild.nodeValue = album.title;
+    albumTitle.firstChild.nodeValue = album.title;
      albumArtist.firstChild.nodeValue = album.artist;
      albumReleaseInfo.firstChild.nodeValue = album.year + ' ' + album.label;
      albumImage.setAttribute('src', album.albumArtUrl);
 
-     // #3
      albumSongList.innerHTML = '';
 
-     // #4
-     for (var i = 0; i < album.songs.length; i++) {
+     for (i = 0; i < album.songs.length; i++) {
          albumSongList.innerHTML += createSongRow(i + 1, album.songs[i].title, album.songs[i].duration);
      }
  };
 
  window.onload = function() {
      setCurrentAlbum(albumPicasso);
+
+     var albums = [albumPicasso, albumMarconi, albumDads];
+     var index = 1;
+     albumImage.addEventListener("click", function(event) {
+        setCurrentAlbum(albums[index]);
+        index++;
+        if (index == albums.length) {
+          index=0;
+        }
+     });
  };
