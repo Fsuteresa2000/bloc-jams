@@ -5,15 +5,14 @@ var albumPicasso = {
      year: '1881',
      albumArtUrl: 'bloc-jams/assets/images/album_covers/01.png',
      songs: [
-         { title: 'Blue', duration: '4:26' },
-         { title: 'Green', duration: '3:14' },
-         { title: 'Red', duration: '5:01' },
-         { title: 'Pink', duration: '3:21'},
-         { title: 'Magenta', duration: '2:15'}
-     ]
- };
+       { title: 'Blue', duration: '4:26', audioUrl: 'bloc-jams/assets/music/blue' },
+       { title: 'Green', duration: '3:14', audioUrl: 'bloc-jams/assets/music/green' },
+       { title: 'Red', duration: '5:01', audioUrl: 'bloc-jams/assets/music/red' },
+       { title: 'Pink', duration: '3:21', audioUrl: 'bloc-jams/assets/music/pink' },
+       { title: 'Magenta', duration: '2:15', audioUrl: 'bloc-jams/assets/music/magenta' }
+   ]
+};
 
- // Another Example Album
  var albumMarconi = {
      title: 'The Telephone',
      artist: 'Guglielmo Marconi',
