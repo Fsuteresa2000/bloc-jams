@@ -117,6 +117,8 @@ var createSongRow = function(songNumber, songName, songLength) {
      $('.currently-playing .artist-name').text(currentAlbum.artist);
      $('.currently-playing .artist-song-mobile').text(setSong.title + "-" + currentAlbum.artist);
      $('.main-controls .play-pause').html(playerBarPauseButton);
+
+       setTotalTimeInPlayerBar(filterTimeCode(currentSongFromAlbum.length));
  };
 
  var updateSeekBarWhileSongPlays = function() {
@@ -125,10 +127,49 @@ var createSongRow = function(songNumber, songName, songLength) {
               var seekBarFillRatio = this.getTime() / this.getDuration();
               var $seekBar = $('.seek-control .seek-bar');
               updateSeekPercentage($seekBar, seekBarFillRatio);
+              setCurrentTimeInPlayerBar(filterTimeCode(currentTime));
           });
       }
   };
 
+var setCurrentTimeInPlayerBar = function(currentTime) {
+    var $currentTimeElement = $('.seek-control .current-time');
+    $currentTimeElement.text(currentTime);
+};
+
+var setTotalTimeInPlayerBar = function(totalTime) {
+    var $totalTimeElement = $('.seek-control .total-time');
+    $totalTimeElement.text(totalTime);
+};
+
+var filterTimeCode = function(timeInSeconds) {
+    var seconds = Number.parseFloat(timeInSeconds);
+    var wholeSeconds = Math.floor(seconds);
+    var minutes = Math.floor(wholeSeconds / 60);
+
+    var remainingSeconds = wholeSeconds % 60;
+    var output = minutes + ':';
+
+    if (remainingSeconds < 10) {
+        output += '0';
+    }
+
+    output += remainingSeconds;
+    return output;
+};
+
+var updateSeekBarWhileSongPlays = function() {
+    if (currentSoundFile) {
+        currentSoundFile.bind('timeupdate', function(event) {
+            var currentTime = this.getTime();
+            var songLength = this.getDuration();
+            var seekBarFillRatio = currentTime / songLength;
+            var $seekBar = $('.seek-control .seek-bar');
+            updateSeekPercentage($seekBar, seekBarFillRatio);
+            setCurrentTimeInPlayerBar(filterTimeCode(currentTime));
+        });
+    }
+};
   var updateSeekPercentage = function($seekBar, seekBarFillRatio) {
      var offsetXPercent = seekBarFillRatio * 100;
      offsetXPercent = Math.max(0, offsetXPercent);
